@@ -54,11 +54,11 @@ const DUMMY_COMPLAINTS = {
 };
 
 const statusColor = {
-  pending: "#ef4444",
-  acknowledged: "#6366f1",
-  in_progress: "#f59e0b",
-  resolved: "#22c55e",
-  rejected: "#94a3b8",
+  pending: "#c0392b",
+  acknowledged: "#2d6a2d",
+  in_progress: "#e67e22",
+  resolved: "#27ae60",
+  rejected: "#5a7a5a",
 };
 
 const statusSteps = ["pending", "acknowledged", "in_progress", "resolved"];
@@ -69,13 +69,18 @@ export default function ComplaintStatus() {
   const [error, setError] = useState("");
 
   const handleSearch = () => {
-    const found = DUMMY_COMPLAINTS[input.toUpperCase().trim()];
+    const trimmed = input.trim().toUpperCase();
+    if (!trimmed) {
+      setError("Please enter a complaint ID.");
+      return;
+    }
+    const found = DUMMY_COMPLAINTS[trimmed];
     if (found) {
       setResult(found);
       setError("");
     } else {
       setResult(null);
-      setError("No complaint found with this ID. Try RW-001, RW-002, or RW-003.");
+      setError("No complaint found. Try RW-001, RW-002, or RW-003.");
     }
   };
 
@@ -83,10 +88,10 @@ export default function ComplaintStatus() {
 
   return (
     <div style={{ padding: "2rem", maxWidth: "800px", margin: "0 auto" }}>
-      <h1 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "0.5rem" }}>
+      <h1 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "0.5rem", color: "#1a2e1a" }}>
         🔍 Complaint Status
       </h1>
-      <p style={{ color: "#94a3b8", marginBottom: "1.5rem", fontSize: "0.9rem" }}>
+      <p style={{ color: "#5a7a5a", marginBottom: "1.5rem", fontSize: "0.9rem" }}>
         Enter your complaint ID to track its current status
       </p>
 
@@ -95,15 +100,15 @@ export default function ComplaintStatus() {
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+          onKeyDown={(e) => { if (e.key === "Enter") handleSearch(); }}
           placeholder="Enter complaint ID (e.g. RW-001)"
           style={{
             flex: 1,
             padding: "0.75rem 1rem",
             borderRadius: "8px",
-            border: "1px solid #334155",
-            background: "#1e293b",
-            color: "white",
+            border: "1px solid #c8d8c8",
+            background: "#ffffff",
+            color: "#1a2e1a",
             fontSize: "1rem",
             outline: "none",
           }}
@@ -114,7 +119,7 @@ export default function ComplaintStatus() {
             padding: "0.75rem 1.5rem",
             borderRadius: "8px",
             border: "none",
-            background: "#6366f1",
+            background: "#2d6a2d",
             color: "white",
             fontWeight: 600,
             cursor: "pointer",
@@ -127,19 +132,20 @@ export default function ComplaintStatus() {
 
       {/* Error */}
       {error && (
-        <div style={{ background: "#450a0a", border: "1px solid #ef4444", borderRadius: "8px", padding: "1rem", color: "#ef4444", marginBottom: "1.5rem" }}>
+        <div style={{ background: "#fdf0ef", border: "1px solid #c0392b", borderRadius: "8px", padding: "1rem", color: "#c0392b", marginBottom: "1.5rem", fontSize: "0.9rem" }}>
           {error}
         </div>
       )}
 
       {/* Result */}
       {result && (
-        <div style={{ background: "#1e293b", borderRadius: "12px", border: "1px solid #334155", overflow: "hidden" }}>
+        <div style={{ background: "#ffffff", borderRadius: "12px", border: "1px solid #c8d8c8", overflow: "hidden" }}>
+
           {/* Header */}
-          <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid #334155", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid #c8d8c8", display: "flex", justifyContent: "space-between", alignItems: "center", background: "#e8f0e8" }}>
             <div>
-              <span style={{ color: "#94a3b8", fontSize: "0.85rem" }}>Complaint ID</span>
-              <h2 style={{ fontSize: "1.2rem", fontWeight: 700 }}>{result.id}</h2>
+              <span style={{ color: "#5a7a5a", fontSize: "0.85rem" }}>Complaint ID</span>
+              <h2 style={{ fontSize: "1.2rem", fontWeight: 700, color: "#1a2e1a" }}>{result.id}</h2>
             </div>
             <span style={{
               background: statusColor[result.status],
@@ -154,8 +160,8 @@ export default function ComplaintStatus() {
             </span>
           </div>
 
-          {/* Details */}
-          <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid #334155", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          {/* Details grid */}
+          <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid #c8d8c8", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
             {[
               { label: "Type", value: result.type.replace("_", " ") },
               { label: "Severity", value: `${result.severity}/5` },
@@ -165,62 +171,78 @@ export default function ComplaintStatus() {
               { label: "Filed On", value: result.created_at },
             ].map(({ label, value }) => (
               <div key={label}>
-                <p style={{ color: "#94a3b8", fontSize: "0.8rem" }}>{label}</p>
-                <p style={{ fontWeight: 500, textTransform: "capitalize" }}>{value}</p>
+                <p style={{ color: "#5a7a5a", fontSize: "0.8rem" }}>{label}</p>
+                <p style={{ fontWeight: 500, textTransform: "capitalize", color: "#1a2e1a" }}>{value}</p>
               </div>
             ))}
             <div style={{ gridColumn: "1 / -1" }}>
-              <p style={{ color: "#94a3b8", fontSize: "0.8rem" }}>Description</p>
-              <p>{result.description}</p>
+              <p style={{ color: "#5a7a5a", fontSize: "0.8rem" }}>Description</p>
+              <p style={{ color: "#1a2e1a" }}>{result.description}</p>
             </div>
           </div>
 
-          {/* Progress bar */}
-          <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid #334155" }}>
-            <p style={{ color: "#94a3b8", fontSize: "0.85rem", marginBottom: "1rem" }}>Progress</p>
-            <div style={{ display: "flex", alignItems: "center", gap: "0" }}>
+          {/* Progress steps */}
+          <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid #c8d8c8" }}>
+            <p style={{ color: "#5a7a5a", fontSize: "0.85rem", marginBottom: "1rem" }}>Progress</p>
+            <div style={{ display: "flex", alignItems: "flex-start" }}>
               {statusSteps.map((step, i) => (
                 <div key={step} style={{ display: "flex", alignItems: "center", flex: 1 }}>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.4rem" }}>
                     <div style={{
                       width: "28px", height: "28px", borderRadius: "50%",
-                      background: i <= currentStep ? "#6366f1" : "#334155",
+                      background: i <= currentStep ? "#2d6a2d" : "#c8d8c8",
                       display: "flex", alignItems: "center", justifyContent: "center",
-                      fontSize: "0.75rem", fontWeight: 700, color: "white"
+                      fontSize: "0.75rem", fontWeight: 700, color: "white",
+                      flexShrink: 0
                     }}>
                       {i < currentStep ? "✓" : i + 1}
                     </div>
-                    <span style={{ fontSize: "0.7rem", color: i <= currentStep ? "#e2e8f0" : "#94a3b8", textTransform: "capitalize", textAlign: "center" }}>
+                    <span style={{
+                      fontSize: "0.7rem",
+                      color: i <= currentStep ? "#1a2e1a" : "#5a7a5a",
+                      textTransform: "capitalize",
+                      textAlign: "center",
+                      whiteSpace: "nowrap"
+                    }}>
                       {step.replace("_", " ")}
                     </span>
                   </div>
                   {i < statusSteps.length - 1 && (
-                    <div style={{ flex: 1, height: "2px", background: i < currentStep ? "#6366f1" : "#334155", margin: "0 0.25rem", marginBottom: "1.2rem" }} />
+                    <div style={{
+                      flex: 1,
+                      height: "2px",
+                      background: i < currentStep ? "#2d6a2d" : "#c8d8c8",
+                      margin: "0 4px",
+                      marginBottom: "20px"
+                    }} />
                   )}
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Timeline log */}
+          {/* Activity log */}
           <div style={{ padding: "1.25rem 1.5rem" }}>
-            <p style={{ color: "#94a3b8", fontSize: "0.85rem", marginBottom: "1rem" }}>Activity Log</p>
+            <p style={{ color: "#5a7a5a", fontSize: "0.85rem", marginBottom: "1rem" }}>Activity Log</p>
             {result.log.map((entry, i) => (
               <div key={i} style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: statusColor[entry.status], marginTop: "4px" }} />
-                  {i < result.log.length - 1 && <div style={{ width: "2px", flex: 1, background: "#334155", margin: "4px 0" }} />}
+                  <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: statusColor[entry.status], marginTop: "4px", flexShrink: 0 }} />
+                  {i < result.log.length - 1 && (
+                    <div style={{ width: "2px", flex: 1, background: "#c8d8c8", margin: "4px 0" }} />
+                  )}
                 </div>
                 <div style={{ paddingBottom: "0.5rem" }}>
                   <p style={{ fontSize: "0.85rem", fontWeight: 600, textTransform: "capitalize", color: statusColor[entry.status] }}>
                     {entry.status.replace("_", " ")}
                   </p>
-                  <p style={{ fontSize: "0.85rem", color: "#94a3b8" }}>{entry.note}</p>
-                  <p style={{ fontSize: "0.75rem", color: "#475569", marginTop: "0.2rem" }}>{entry.date}</p>
+                  <p style={{ fontSize: "0.85rem", color: "#1a2e1a" }}>{entry.note}</p>
+                  <p style={{ fontSize: "0.75rem", color: "#5a7a5a", marginTop: "0.2rem" }}>{entry.date}</p>
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       )}
     </div>

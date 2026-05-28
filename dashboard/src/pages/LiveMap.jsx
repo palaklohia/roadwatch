@@ -39,13 +39,13 @@ export default function LiveMap() {
       {/* Filter bar */}
       <div style={{
         padding: "1rem 2rem",
-        background: "#1e293b",
-        borderBottom: "1px solid #334155",
+        background: "#ffffff",
+        borderBottom: "1px solid #c8d8c8",
         display: "flex",
         gap: "0.75rem",
         alignItems: "center"
       }}>
-        <span style={{ color: "#94a3b8", fontSize: "0.9rem" }}>Filter:</span>
+        <span style={{ color: "#5a7a5a", fontSize: "0.9rem" }}>Filter:</span>
         {["all", "pothole", "fallen_tree", "streetlight", "waterlogging", "accident", "roadkill"].map((type) => (
           <button
             key={type}
@@ -53,9 +53,9 @@ export default function LiveMap() {
             style={{
               padding: "0.3rem 0.8rem",
               borderRadius: "999px",
-              border: "1px solid #334155",
-              background: filter === type ? "#6366f1" : "transparent",
-              color: filter === type ? "white" : "#94a3b8",
+              border: "1px solid #c8d8c8",
+              background: filter === type ? "#2d6a2d" : "transparent",
+              color: filter === type ? "white" : "#5a7a5a",
               cursor: "pointer",
               fontSize: "0.8rem",
               textTransform: "capitalize"
@@ -64,7 +64,7 @@ export default function LiveMap() {
             {type.replace("_", " ")}
           </button>
         ))}
-        <span style={{ marginLeft: "auto", color: "#94a3b8", fontSize: "0.85rem" }}>
+        <span style={{ marginLeft: "auto", color: "#5a7a5a", fontSize: "0.85rem" }}>
           {filtered.length} complaints
         </span>
       </div>

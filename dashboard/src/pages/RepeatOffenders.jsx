@@ -21,7 +21,7 @@ export default function RepeatOffenders() {
       <h1 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "0.5rem" }}>
         🚨 Repeat Offender Tracker
       </h1>
-      <p style={{ color: "#94a3b8", marginBottom: "1.5rem", fontSize: "0.9rem" }}>
+      <p style={{ color: "#5a7a5a", marginBottom: "1.5rem", fontSize: "0.9rem" }}>
         Roads and contractors with repeated complaints in the last 12 months
       </p>
 
@@ -35,8 +35,8 @@ export default function RepeatOffenders() {
               padding: "0.5rem 1.5rem",
               borderRadius: "8px",
               border: "none",
-              background: tab === t ? "#6366f1" : "#1e293b",
-              color: tab === t ? "white" : "#94a3b8",
+              background: tab === t ? "#2d6a2d" : "#ffffff",
+              color: tab === t ? "white" : "#5a7a5a",
               cursor: "pointer",
               fontWeight: tab === t ? 600 : 400,
               textTransform: "capitalize"
@@ -52,26 +52,26 @@ export default function RepeatOffenders() {
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
-              <tr style={{ background: "#1e293b", textAlign: "left" }}>
+              <tr style={{ background: "#ffffff", textAlign: "left" }}>
                 {["Road", "Type", "Location", "Contractor", "Complaints", "Avg Severity", "Last Maintained", "Budget Used", "Status"].map((h) => (
-                  <th key={h} style={{ padding: "0.75rem 1rem", color: "#94a3b8", fontSize: "0.85rem", borderBottom: "1px solid #334155" }}>{h}</th>
+                  <th key={h} style={{ padding: "0.75rem 1rem", color: "#5a7a5a", fontSize: "0.85rem", borderBottom: "1px solid #c8d8c8" }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {DUMMY_ROADS.map((road, i) => (
-                <tr key={road.id} style={{ background: i % 2 === 0 ? "#0f172a" : "#1e293b" }}>
+                <tr key={road.id} style={{ background: i % 2 === 0 ? "#f0f4f0" : "#ffffff" }}>
                   <td style={{ padding: "0.75rem 1rem", fontWeight: 600 }}>{road.road_name}</td>
                   <td style={{ padding: "0.75rem 1rem" }}>
-                    <span style={{ background: "#334155", padding: "0.2rem 0.5rem", borderRadius: "4px", fontSize: "0.8rem" }}>{road.road_type}</span>
+                    <span style={{ background: "#c8d8c8", padding: "0.2rem 0.5rem", borderRadius: "4px", fontSize: "0.8rem" }}>{road.road_type}</span>
                   </td>
-                  <td style={{ padding: "0.75rem 1rem", color: "#94a3b8" }}>{road.location}</td>
+                  <td style={{ padding: "0.75rem 1rem", color: "#5a7a5a" }}>{road.location}</td>
                   <td style={{ padding: "0.75rem 1rem" }}>{road.contractor_name}</td>
                   <td style={{ padding: "0.75rem 1rem" }}>
                     <span style={{ color: road.complaint_count >= 5 ? "#ef4444" : "#f59e0b", fontWeight: 700 }}>{road.complaint_count}</span>
                   </td>
                   <td style={{ padding: "0.75rem 1rem" }}>{road.avgSeverity}/5</td>
-                  <td style={{ padding: "0.75rem 1rem", color: "#94a3b8" }}>{road.last_maintained}</td>
+                  <td style={{ padding: "0.75rem 1rem", color: "#5a7a5a" }}>{road.last_maintained}</td>
                   <td style={{ padding: "0.75rem 1rem" }}>{road.budgetUtilization}</td>
                   <td style={{ padding: "0.75rem 1rem" }}>{road.rating}</td>
                 </tr>
@@ -86,15 +86,15 @@ export default function RepeatOffenders() {
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
-              <tr style={{ background: "#1e293b", textAlign: "left" }}>
+              <tr style={{ background: "#ffffff", textAlign: "left" }}>
                 {["Contractor", "Roads Managed", "Total Complaints", "Shame Score", "Rating"].map((h) => (
-                  <th key={h} style={{ padding: "0.75rem 1rem", color: "#94a3b8", fontSize: "0.85rem", borderBottom: "1px solid #334155" }}>{h}</th>
+                  <th key={h} style={{ padding: "0.75rem 1rem", color: "#5a7a5a", fontSize: "0.85rem", borderBottom: "1px solid #c8d8c8" }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {DUMMY_CONTRACTORS.map((c, i) => (
-                <tr key={c.id} style={{ background: i % 2 === 0 ? "#0f172a" : "#1e293b" }}>
+                <tr key={c.id} style={{ background: i % 2 === 0 ? "#f0f4f0" : "#ffffff" }}>
                   <td style={{ padding: "0.75rem 1rem", fontWeight: 600 }}>{c.contractor_name}</td>
                   <td style={{ padding: "0.75rem 1rem" }}>{c.roads_managed}</td>
                   <td style={{ padding: "0.75rem 1rem" }}>
